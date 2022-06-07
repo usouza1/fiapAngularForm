@@ -15,13 +15,22 @@ article p:first-child {
 }
 
 article .material-icons {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+article .edit {
+  font-size: 26px;
+  position: absolute;
+  bottom: 5px;
+  right: 35px;
+}
+
+article .remove {
+  font-size: 30px;
   position: absolute;
   bottom: 5px;
   right: 5px;
-
-  font-size: 32px;
-  cursor: pointer;
-  transition: 0.2s;
 }
 
 article .material-icons:hover {

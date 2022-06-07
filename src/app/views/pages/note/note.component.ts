@@ -31,7 +31,11 @@ export class NoteComponent implements OnInit {
 
   confirmRemove(){
     if(confirm("Deseja realmente apagar?"))
-      this.notify.emit();
+      this.notify.emit("remove");
+  }
+
+  edit(){
+    this.notify.emit("edit");
   }
 
 }

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { Note } from 'src/app/services/@types/note';
 import { NoteService } from 'src/app/services/note.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-note',
@@ -12,6 +14,7 @@ export class FormNoteComponent implements OnInit {
   logoImage = '/assets/logo.png';
 
   checkoutForm: FormGroup;
+  subscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,9 +23,16 @@ export class FormNoteComponent implements OnInit {
     this.checkoutForm = this.formBuilder.group({
       textNote: ['', [Validators.required, Validators.minLength(5)]],
     });
+    this.subscription = this.noteService.editModeProvider.subscribe({
+      next: (note: Note) => {
+        // alert("chegou no set textNote... note.text: " + note.text);
+        this.checkoutForm.controls["textNote"].setValue(note.text);
+      },
+      error: () => {}
+    });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { this.checkoutForm.controls["textNote"].setValue("")}
 
   sendNote() {
     // console.log(this.checkoutForm.get('textNote')?.errors);
@@ -38,8 +48,9 @@ export class FormNoteComponent implements OnInit {
       });
     }
   }
-
+  
   get textNote() {
     return this.checkoutForm.get('textNote');
   }
+
 }

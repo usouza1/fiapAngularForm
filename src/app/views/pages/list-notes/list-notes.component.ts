@@ -38,9 +38,17 @@ export class ListNotesComponent implements OnInit {
     });
   }
 
-  removeNote(noteId: number){
-    this.noteService.removeNote(noteId).subscribe(
-      () => this.notes = this.notes.filter(note => note.id !== noteId)
-    );
+  doAction(event: string, note: Note){
+    // alert("entrou em doAction: event: " + event + " noteId: " + note.id)
+    if (event == "remove"){
+      // ajuste para evitar falha no filtro subsequente
+      const noteId = note.id;
+      this.noteService.removeNote(noteId).subscribe(
+        () => this.notes = this.notes.filter(note => note.id !== noteId)
+      );
+    } else if (event == "edit") {
+      // alert("entrou no edit... noteId: " + note.id)
+      this.noteService.notifyEditMode(note);
+    }
   }
 }
