@@ -4,7 +4,7 @@
   <form id="form-notes" 
       [formGroup]="checkoutForm" (submit)="sendNote()">
     <div class="input-group">
-      <label>Nota:</label>
+      <input id="info" formControlName="info">
       <textarea
         type="text"
         id="inputTextNote"
@@ -21,6 +21,6 @@
         </div>
       </div>
     </div>
-    <button [disabled]="!checkoutForm?.valid">Salvar</button>
+    <button [disabled]="!checkoutForm?.valid">Enviar</button>
   </form>
 </aside>

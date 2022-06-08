@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class FormNoteComponent implements OnInit {
   title = 'FIAP NOTES';
   logoImage = '/assets/logo.png';
+  note = {} as Note;
 
   checkoutForm: FormGroup;
   subscription: Subscription;
@@ -22,33 +23,54 @@ export class FormNoteComponent implements OnInit {
   ) {
     this.checkoutForm = this.formBuilder.group({
       textNote: ['', [Validators.required, Validators.minLength(5)]],
+      info: {value: 'Adicionar nota', disabled: true},
     });
     this.subscription = this.noteService.editModeProvider.subscribe({
       next: (note: Note) => {
         // alert("chegou no set textNote... note.text: " + note.text);
+        this.note = note;
+        this.checkoutForm.controls["info"].setValue("Editar nota id: " + note.id);
         this.checkoutForm.controls["textNote"].setValue(note.text);
       },
       error: () => {}
     });
   }
 
-  ngOnInit(): void { this.checkoutForm.controls["textNote"].setValue("")}
+  ngOnInit(): void {}
 
   sendNote() {
     // console.log(this.checkoutForm.get('textNote')?.errors);
     if (this.checkoutForm.valid) {
-      this.noteService.postNotes(this.checkoutForm.value.textNote).subscribe({
-        //next é chamado quando as coisas dão certo
-        next: (note) => {
-          this.checkoutForm.reset();
-          this.noteService.notifyNewNoteAdded(note);
-        },
-        //error é chamado no caso de excessões
-        error: (error) => alert("Algo errado na inserção! " + error)
-      });
+      if (this.note.id != null) {
+        this.note.text = this.checkoutForm.value.textNote;
+        this.noteService.updateNote(this.note.id, this.note.text).subscribe({
+          //next é chamado quando as coisas dão certo
+          next: (note) => {
+            // this.noteService.notifyNoteUpdated(this.note);
+            this.resetForm();
+          },
+          //error é chamado no caso de excessões
+          error: (error) => alert("Algo errado na inserção! " + error)
+        });
+      } else {
+        this.noteService.postNotes(this.checkoutForm.value.textNote).subscribe({
+          //next é chamado quando as coisas dão certo
+          next: (note) => {
+            this.noteService.notifyNewNoteAdded(note);
+            this.resetForm();
+          },
+          //error é chamado no caso de excessões
+          error: (error) => alert("Algo errado na inserção! " + error)
+        });
+      }
     }
   }
   
+  resetForm(){
+    this.checkoutForm.reset({info: 'Adicionar nota'});
+    this.note = {} as Note;
+  }
+
   get textNote() {
     return this.checkoutForm.get('textNote');
   }

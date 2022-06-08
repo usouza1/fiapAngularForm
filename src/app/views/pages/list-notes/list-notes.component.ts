@@ -23,6 +23,17 @@ export class ListNotesComponent implements OnInit {
       },
       error: () => {}
     });
+    // this.subscription = this.noteService.updatedNoteProvider.subscribe({
+    //   next: (note: Note) => {
+    //     // this.getApiNotes();
+        
+    //     // const noteId = note.id; // ajuste para evitar falha no filtro subsequente
+    //     // this.notes = this.notes.filter(note => note.id !== noteId);
+    //     // this.notes.push(note);
+        
+    //   },
+    //   error: () => {}
+    // });
   }
 
   //método do cliclo de vida do componente

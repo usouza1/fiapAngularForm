@@ -22,6 +22,13 @@ export class NoteService {
     // this.newNoteSource.error("algum exception");
   }
 
+  // private updatedNoteSource = new Subject<Note>();
+  // updatedNoteProvider = this.updatedNoteSource.asObservable();
+  // notifyNoteUpdated(note: Note){
+  //   this.updatedNoteSource.next(note);
+  //   // this.updatedNoteSource.error("algum exception");
+  // }
+
   private editModeSource = new Subject<Note>();
   editModeProvider = this.editModeSource.asObservable();
   notifyEditMode(note: Note){
@@ -46,7 +53,7 @@ export class NoteService {
   }
 
   updateNote(noteId: number, textNote: string){
-    return this.http.put<Note>(`${this.apiUrl}/note/${noteId}`, {text: textNote});
+    return this.http.put<any>(`${this.apiUrl}/notes/${noteId}`, {text: textNote});
   }
   
 }
