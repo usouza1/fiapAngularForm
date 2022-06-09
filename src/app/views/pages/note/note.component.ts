@@ -39,9 +39,10 @@ export class NoteComponent implements OnInit {
   }
 
   // Recurso de cores nas notas
-  // Cria um controle e listas com combinações de cores de fundo e de fonte para a nota
+  // Criado listas com combinações de cores de fundo e de fonte para a nota
   noteColors = ["#f04d82", "#e0e476", "#94d97b", "#ddd", "#8acce6", "#555252", "#f48047", "#9e59ce"];
   noteFtColors = ["#ddd", "#373030", "#373030", "#373030", "#373030", "#ddd", "#ddd", "#ddd"];
+  // Atribuido um valor inicial aleatório dentro do número de cores disponíveis
   noteColorControl = Math.floor(Math.random() * (this.noteColors.length + 1));
   
   // Seta as cores iniciais da nota
@@ -50,11 +51,7 @@ export class NoteComponent implements OnInit {
 
   // Alterna a cor da nota entre as cores disponíveis
   setColor(){
-    if(this.noteColorControl < this.noteColors.length ){
-      this.noteColorControl++;
-    } else {
-      this.noteColorControl = 0;
-    }
+    this.noteColorControl = this.noteColorControl < this.noteColors.length ? this.noteColorControl + 1 : 0;
     this.noteColor = this.noteColors[this.noteColorControl];
     this.noteFtColor = this.noteFtColors[this.noteColorControl];
   }
