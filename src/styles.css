@@ -19,6 +19,7 @@ body {
 button {
   width: 90%;
   margin-top: 10px;
+  margin-right: 2px;
   padding: 5px;
   background-color: transparent;
   border: 1px solid #ed145b;

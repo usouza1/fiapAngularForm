@@ -51,6 +51,11 @@ aside {
     border: none;
   }
 
+  .btnDiv {
+    display: flex;
+    width: 90%;
+  }
+
   .errors {
     color: #AA0000;
     font-size: 14px;

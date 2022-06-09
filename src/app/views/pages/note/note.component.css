@@ -5,7 +5,7 @@ article {
   position: relative;
 
   color: #ddd;
-  background-color: #ed145b;
+  background-color: #f04d82;
   box-shadow: 2px 2px 10px #00000099;
 }
 
@@ -17,6 +17,13 @@ article p:first-child {
 article .material-icons {
   cursor: pointer;
   transition: 0.2s;
+}
+
+article .color {
+  font-size: 26px;
+  position: absolute;
+  bottom: 5px;
+  right: 65px;
 }
 
 article .edit {

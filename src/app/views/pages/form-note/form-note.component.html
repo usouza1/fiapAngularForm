@@ -21,6 +21,9 @@
         </div>
       </div>
     </div>
-    <button [disabled]="!checkoutForm?.valid">Enviar</button>
+    <div class="btnDiv">
+      <button [disabled]="!checkoutForm?.valid" type="button" (click)="resetForm()">Cancelar</button>
+      <button [disabled]="!checkoutForm?.valid" type="submit">Enviar</button>
+    </div>
   </form>
 </aside>

@@ -42,11 +42,11 @@ export class FormNoteComponent implements OnInit {
     // console.log(this.checkoutForm.get('textNote')?.errors);
     if (this.checkoutForm.valid) {
       if (this.note.id != null) {
-        this.note.text = this.checkoutForm.value.textNote;
-        this.noteService.updateNote(this.note.id, this.note.text).subscribe({
+        this.noteService.updateNote(this.note.id, this.checkoutForm.value.textNote).subscribe({
           //next é chamado quando as coisas dão certo
           next: (note) => {
             // this.noteService.notifyNoteUpdated(this.note);
+            this.note.text = this.checkoutForm.value.textNote;
             this.resetForm();
           },
           //error é chamado no caso de excessões
